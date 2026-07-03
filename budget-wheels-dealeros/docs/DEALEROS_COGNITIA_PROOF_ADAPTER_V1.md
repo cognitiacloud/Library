@@ -61,7 +61,7 @@ in-app domain types in `build-packets/schemas/core.ts` stay camelCase.
 | 6 | `actor_id` | `string` | yes | Specific actor: a `UserId`, an `AgentPassportId`, a system job name, or a `ConnectorId`. Free string because the referent type varies by `actor_type`. |
 | 7 | `agent_passport_id` | `AgentPassportId?` | optional | When an agent acted, ties the receipt to its passport (`AgentPassport` in agent-economy.ts) and therefore to an exact `model_provider_ref` and `prompt_registry_key`. Every AI action is traceable to a prompt version. |
 | 8 | `human_approver_id` | `UserId?` | optional | The named human who approved the action. Mandatory (enforced) whenever an agent caused an external side effect. Accountability is a person, not a role. |
-| 9 | `customer_ref_redacted` | `string` | yes | ALWAYS from `redactCustomerRef()` or `NO_CUSTOMER_REF` (`'cust_none'`) — never a raw id or name. Lets receipts be retained, exported, and shown without carrying PII (Section 12). Emitter rejects values not starting `cust_`. |
+| 9 | `customer_ref_redacted` | `string` | yes | ALWAYS from `redactCustomerRef()` or `NO_CUSTOMER_REF` (`'cust_none'`) — never a raw id or name. Lets receipts be retained, exported, and shown without carrying PII (Section 11). Emitter rejects values not starting `cust_`. |
 | 10 | `lead_id` | `LeadId?` | optional | Joins the receipt to the lead pipeline (Module 5) without duplicating lead content into the ledger. |
 | 11 | `vehicle_id` | `VehicleId?` | optional | Joins to inventory (Module 3) — e.g. which unit was matched or test-driven. |
 | 12 | `deal_id` | `DealId?` | optional | Joins to the deal for `sold_marked` and attribution receipts. |
@@ -71,14 +71,14 @@ in-app domain types in `build-packets/schemas/core.ts` stay camelCase.
 | 16 | `action_requested` | `string` | yes | What was asked for, before gating. Distinct from what happened, so denied/queued actions are still first-class evidence ("agent asked to send SMS; gate said no"). |
 | 17 | `action_taken` | `string` | yes | What actually happened. The requested/taken pair is the core honesty mechanism — most audit disputes are exactly the gap between the two. |
 | 18 | `policy_gate_result` | `PolicyGateResult` | yes | `{ gateKey, result: 'allow' \| 'deny' \| 'needs_human_approval', reason }`. Records *which* gate ruled and *why*, not just the verdict (Section 6). |
-| 19 | `consent_basis` | `ConsentRecord['basis']` | yes | `'express' \| 'implied_ebr' \| 'implied_inquiry' \| 'none'` — CASL-aware vocabulary reused from core.ts so consent language cannot drift between CRM and ledger (Section 10). |
+| 19 | `consent_basis` | `ConsentRecord['basis']` | yes | `'express' \| 'implied_ebr' \| 'implied_inquiry' \| 'none'` — CASL-aware vocabulary reused from core.ts so consent language cannot drift between CRM and ledger (Section 9). |
 | 20 | `data_refs` | `string[]` | yes | Opaque references to evidence records (no PII in the refs themselves): conversation refs, SLA state refs, approval-task refs. The receipt cites evidence; it does not embed it. |
 | 21 | `external_side_effect` | `boolean` | yes | Did anything leave the system (SMS, email, listing post, calendar write, CRM/DMS export)? The single most important filter for audits and for the agent-approver invariant. |
 | 22 | `payload_hash` | `string` | yes | sha256 hex of the canonicalized receipt body (every field except the two hash fields). Any later edit to the body is detectable (Section 4). |
 | 23 | `prev_receipt_hash` | `string` | yes | Receipt-hash of the previous ledger entry, or the literal `'GENESIS'` for the first. Chains order and content: you cannot silently insert, delete, or reorder receipts without breaking every later link. |
 | 24 | `timestamp` | `IsoTimestamp` | yes | ISO-8601 UTC. Passed *into* `emit()` by the caller — no `Date.now()` inside logic — so receipt creation is deterministic and testable. |
-| 25 | `rollback_path` | `string` | yes | How to undo or compensate this action (Section 9). Forces the "how do we take it back?" question to be answered at write time, not incident time. |
-| 26 | `dispute_path` | `string` | yes | Where a human contests this record, e.g. `cognitia://disputes/new?receipt=<id>`. Every receipt is contestable by construction (Section 9). |
+| 25 | `rollback_path` | `string` | yes | How to undo or compensate this action (Section 8). Forces the "how do we take it back?" question to be answered at write time, not incident time. |
+| 26 | `dispute_path` | `string` | yes | Where a human contests this record, e.g. `cognitia://disputes/new?receipt=<id>`. Every receipt is contestable by construction (Section 8). |
 | 27 | `claim_safe_summary` | `string` | yes | Factual, past-tense, template-generated sentence. The only receipt text ever shown in dealer-facing UI or reports (Section 5). |
 
 Emitter split: callers supply `ProofReceiptInput` (everything above except
@@ -333,7 +333,7 @@ bug, and a receipt with no reachable domain record is a bug.
    (connector syncs, internal scoring, inventory matches) and for inbound
    record-of-fact events. `none` on an *outbound* receipt with
    `external_side_effect: true` is a red-flag query in the ledger browser
-   (Section 11) and should be impossible if the consent gate is wired
+   (Section 10) and should be impossible if the consent gate is wired
    correctly — acceptance test material.
 5. **Closing the loop:** `consent_captured` receipts write their own
    `receipt_id` back onto the `ConsentRecord` (`ConsentRecord.receiptId`), so
