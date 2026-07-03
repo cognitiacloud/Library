@@ -125,7 +125,7 @@ How Demandara makes it more revenue-native.
 
 | Product | Best feature | Weakness/gap | Copy conceptually | Improve on | How Cognitia proof makes it harder to copy | How Demandara makes it more revenue-native |
 |---|---|---|---|---|---|---|
-| Kimoby (Service Lane OS) | CASL-compliant SMS as a first-class onboarding topic; consent capture at service write-up; sender ID + opt-out baked into templates | Service-lane-centric, not a full CRM/traffic desk; template hygiene rather than enforced gates; no per-message consent-basis ledger | Consent capture at natural workflow moments; compliance pre-inserted in every template (Modules 2, 8, 14) | Hard policy gates (non-consented sends blocked, `policy_gate_result=denied`); consent-expiry engine | `policy_gate_result` on every send receipt proves non-compliant sends were BLOCKED, not just avoided | Consent-aware growth: compliance panel (sent vs. blocked, consent coverage, opt-out honor time) inside the monthly proof report |
+| Kimoby (Service Lane OS) | CASL-compliant SMS as a first-class onboarding topic; consent capture at service write-up; sender ID + opt-out baked into templates | Service-lane-centric, not a full CRM/traffic desk; template hygiene rather than enforced gates; no per-message consent-basis ledger | Consent capture at natural workflow moments; compliance pre-inserted in every template (Modules 2, 8, 14) | Hard policy gates (non-consented sends blocked, a `policy_gate_result` `'deny'` verdict); consent-expiry engine | `policy_gate_result` on every send receipt proves non-compliant sends were BLOCKED, not just avoided | Consent-aware growth: compliance panel (sent vs. blocked, consent coverage, opt-out honor time) inside the monthly proof report |
 
 ## 3. Category verdicts
 

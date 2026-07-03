@@ -56,7 +56,7 @@ Purpose: the single decision-ready feature inventory for Budget Wheels DealerOS.
 |---|---|---|
 | Traffic event capture for all `TrafficSourceKind` values (phone/internet/walk-in/website/marketplace/after-hours/service-drive/referral/partner) | [MVP] | desk UI + API |
 | Appointment board (day/week view, per rooftop) | [MVP] | desk UI |
-| SLA timers per source (`SlaState`; e.g. internet 15 min, after-hours 9:05 next morning) with breach escalation | [MVP] | job + desk UI |
+| SLA timers per source (`SlaState`; e.g. internet 15 min, after-hours 09:00 next business morning) with breach escalation | [MVP] | job + desk UI |
 | Assignment (round-robin + manual override) | [MVP] | desk UI + job |
 | No-show tracking and outcome recording (`TrafficOutcome`, `LostReason`) | [MVP] | desk UI |
 | Source/campaign/UTM tracking on every event | [MVP] | API + website |

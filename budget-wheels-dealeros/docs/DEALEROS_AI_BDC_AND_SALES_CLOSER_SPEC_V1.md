@@ -77,7 +77,9 @@ reuse thirteen times.
 6. **Send-later gate** — approval does NOT send. Approved drafts enter a send
    queue that re-checks at execution time: (a) consent still valid on the
    channel (CASL implied-consent expiry honored), (b) quiet hours for the
-   rooftop timezone (default: no SMS/voice 21:00–08:00 America/Vancouver),
+   rooftop's IANA timezone per `DEALEROS_DEALERMINE_STYLE_CRM_BDC_SPEC_V1.md`
+   Section 9 (default: no SMS/voice 20:00–09:00, tenant-editable within the
+   non-editable 21:00–08:00 floor),
    (c) connector mode — in mock mode the send is simulated and labeled MOCK,
    (d) lead not marked sold/lost/opt-out since approval. Any failed check
    parks the item back to the inbox with a reason. Live mode is per-tenant,
@@ -177,7 +179,8 @@ send-later gate, not by prompt text alone.
 12. Anything the compliance_check task flags.
 
 Escalation SLA default: 15 business-minutes to first human touch;
-after-hours → next-morning 09:05 rooftop time (aligned with Module 4 SlaState).
+after-hours → next business morning 09:00 rooftop time (aligned with Module 4
+SlaState and `morningStartHour` in `build-packets/traffic-desk/sla.ts`).
 
 ---
 
@@ -191,7 +194,8 @@ claim, not adopted). Numa's missed-call rescue maps directly to Module 4's
 1. **V1 (tenant-zero, drafts-only):** every after-hours traffic event (form,
    chat, marketplace lead, missed call) gets: lead_received receipt → instant
    draft (cap. 1) → queued to the next-morning approval inbox, pre-sorted by
-   intent band. `firstResponseDueAt` = next business day 09:05 rooftop time.
+   intent band. `firstResponseDueAt` = next business day 09:00 rooftop time
+   (`morningStartHour`, DEFAULT_SLA_POLICY in `sla.ts`).
    The manager dashboard shows an "overnight queue" count at open.
 2. **Stage B (design only, not enabled):** `template_auto_ack` — a static,
    human-pre-approved acknowledgment template (fixed text, no model call at
@@ -202,8 +206,10 @@ claim, not adopted). Numa's missed-call rescue maps directly to Module 4's
    change with its own receipt.
 3. **Stage C (deferred with voice):** live after-hours voice answering.
    SKIPPED_WITH_REASON: requires the live voice vendor (Section 1).
-4. Quiet hours always outrank after-hours speed: no outbound SMS/voice drafts
-   are ever released 21:00–08:00 rooftop time even under Stage B.
+4. Quiet hours always outrank after-hours speed: sends queue through the
+   rooftop's quiet-hours window (default 20:00–09:00; non-editable floor
+   21:00–08:00 per `DEALEROS_DEALERMINE_STYLE_CRM_BDC_SPEC_V1.md` Section 9)
+   even under Stage B.
 
 Acceptance criteria: overnight events appear in the morning queue with drafts
 attached and correct SLA timers; zero auto-sent free-form AI text in any stage.

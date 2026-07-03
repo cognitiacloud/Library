@@ -10,7 +10,7 @@ This is the flagship strategy document for Budget Wheels DealerOS. It synthesize
 `research/canada-compliance.md`), and the reference scaffolds
 (`build-packets/README.md`). Sibling docs referenced:
 `DEALEROS_MULTI_TENANT_SAAS_ARCHITECTURE_V1.md`,
-`DEALEROS_MUHAMMAD_DECISION_BOARD_V1.md`, `DEALEROS_DELIVERY_MEMO_V1.md`,
+`DEALEROS_30_60_90_DAY_BUILD_ROADMAP_V1.md`,
 `BUDGET_WHEELS_WHAT_WE_BUILT_SO_FAR_V1.md`.
 
 ---
@@ -140,7 +140,7 @@ switching cost of leaving all four.
 ## 4. The 10 north-star product goals, restated as strategy
 
 Canonical statement for V1 (mapped to `CONTEXT_PACK.md` modules; the delivery
-sequencing lives in `DEALEROS_DELIVERY_MEMO_V1.md`):
+sequencing lives in `DEALEROS_30_60_90_DAY_BUILD_ROADMAP_V1.md`):
 
 | # | North-star goal | Strategic meaning | Modules |
 |---|---|---|---|
@@ -174,7 +174,7 @@ outreach of any kind until every gate below passes and Muhammad approves.**
 | T0-2 | Traffic desk end-to-end | 100% of simulated traffic events (phone/web/walk-in/after-hours) logged, assigned, SLA-timed; every state change emits a receipt |
 | T0-3 | Sales Closer loop | Lead → AI draft → human approval → appointment draft → sold/lost, fully receipted; zero auto-sends observed in testing |
 | T0-4 | Proof report reproducibility | Monthly proof report regenerates identically from the receipt ledger alone; every claimed appointment resolves to a receipt chain |
-| T0-5 | Consent engine | Express/implied basis + expiry computed per contact/channel; non-consented drafts blocked with `policy_gate_result=denied` |
+| T0-5 | Consent engine | Express/implied basis + expiry computed per contact/channel; non-consented drafts blocked with a `policy_gate_result` `'deny'` verdict |
 | T0-6 | Ad Compliance Pre-Flight | Simulated BC listings pass total-price / VIN / stock-number / disclosure checks; failures block publish (rule text pending legal review) |
 | T0-7 | Demandara loop (mock) | Lead in via mock `POST /api/demandara/leads`; outcome + attribution back via mock `GET` endpoints |
 | T0-8 | Operator usability | Muhammad can run a full demo-day scenario solo, from lead to proof report, without engineering help |
@@ -302,8 +302,9 @@ pricing is public or final.
 
 ## 10. Decision asks for Muhammad
 
-Full option analysis lives in `DEALEROS_MUHAMMAD_DECISION_BOARD_V1.md`; this
-section states the asks this strategy depends on.
+This section is the V1 decision record: it states the asks this strategy
+depends on, and each ask cites the section of this document (or
+`CONTEXT_PACK.md`) that carries its supporting analysis.
 
 1. **Approve the wedge** (Section 6, stage 0) as the only V1 build target —
    everything else is sequenced behind it.

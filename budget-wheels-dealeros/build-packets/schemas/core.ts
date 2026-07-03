@@ -329,7 +329,7 @@ export interface TrafficEvent {
 }
 
 export interface SlaState {
-  /** Response due by; e.g. internet leads 15 min, after-hours next-morning 9:05. */
+  /** Response due by; e.g. internet leads 15 min, after-hours next business morning 09:00 (`morningStartHour`). */
   firstResponseDueAt: IsoTimestamp;
   firstRespondedAt?: IsoTimestamp;
   breached: boolean;

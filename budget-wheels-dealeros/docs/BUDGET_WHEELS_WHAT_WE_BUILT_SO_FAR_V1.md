@@ -14,7 +14,7 @@ fake/reserved/local-only.
 
 | Asset | State | Feeds into DealerOS as |
 |---|---|---|
-| Independent used-car dealer avatar (Vancouver/BC) | internal design | Tenant-zero ICP: independent used-car dealer, BC-first compliance posture (VSA/PIPA/CASL) |
+| Independent used-car dealer avatar (Vancouver/BC) | internal design | Tenant-zero ICP: independent used-car dealer, BC-first compliance posture (VSA/PIPA/CASL); see `BUDGET_WHEELS_DEALEROS_EXECUTIVE_STRATEGY_V1.md` |
 | Core offer: "Proof-Backed Used-Car Lead-to-Close Engine" | internal design | The V1 product wedge — Sales Closer + proof receipts (Modules 5, 11) |
 | Claim-safe used-car dealer content pack | internal draft | Seed content library for Demand Gen engine (Module 9); wording constraints imported into `build-packets/website/claims.ts` |
 
@@ -49,17 +49,18 @@ fake/reserved/local-only.
 
 ## 5. What this run added (2026-07-03)
 
-- Full DealerOS architecture + module docs (`docs/` — 19 reports, see DEALEROS_DELIVERY_MEMO_V1.md).
+- Full DealerOS architecture + module docs (`docs/` — 19 reports, including this one; index in `DEALEROS_DELIVERY_MEMO_V1.md`, module map in `DEALEROS_FEATURE_MAP_AND_MODULE_ARCHITECTURE_V1.md`).
 - Competitor research corpus (`research/` — 11 categories, public sources).
 - Executable reference scaffolds (`build-packets/` — core schema, proof emitter, connector registry, AI harness, Demandara adapter, equity mining, traffic desk, website engine, all with passing mock tests).
-- 30/60/90-day build roadmap and decision board for the owner.
+- 30/60/90-day build roadmap (`DEALEROS_30_60_90_DAY_BUILD_ROADMAP_V1.md`) and owner decision board (`DEALEROS_MUHAMMAD_DECISION_BOARD_V1.md`).
 
 ## 6. Honest gap statement
 
 There is still **no product**: no running application, no database, no UI, no
 tenant, no live connector, no deployed website. Everything to date is design,
 research, demo material, and reference scaffolding. The first real build
-milestone is the dedicated DealerOS repo (see roadmap Week 1).
+milestone is the dedicated DealerOS repo (see
+`DEALEROS_30_60_90_DAY_BUILD_ROADMAP_V1.md`, Week 1).
 
 ## Boundaries honored
 
